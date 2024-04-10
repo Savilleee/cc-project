@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin: 20px;
+    }
+
+    .sidebar {
+      width: 300px;
+      margin-right: 20px;
+    }
+
+    .main-content {
+      width: 100%;
+    }
+
+    .sidebar input[type="range"] {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .prediction {
+      font-size: 34px;
+      color: green;
+      font-weight: bold;
+    }
+
+    .job-info {
+      margin-top: 20px;
+    }
+
+    .job-info h3 {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .job-info p {
+      margin-bottom: 5px;
+    }
+
+    .pred-prob {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .pred-prob h4 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .pred-prob p {
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <h3>Business Page - Skill Levels</h3>
+      <p>Use the sliders to input your skill levels (1-10).</p>
+      <div>
+        <label for="Ethical Conduct">Ethical Conduct</label>
+        <input type="range" id="Ethical Conduct" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Leadership and Management">Leadership and Management</label>
+        <input type="range" id="Leadership and Management" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Strategic Impact">Strategic Impact</label>
+        <input type="range" id="Strategic Impact" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Communication and Presentation">Communication and Presentation</label>
+        <input type="range" id="Communication and Presentation" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Analytical Skills">Analytical Skills</label>
+        <input type="range" id="Analytical Skills" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Regulatory Compliance">Regulatory Compliance</label>
+        <input type="range" id="Regulatory Compliance" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Risk Management">Risk Management</label>
+        <input type="range" id="Risk Management" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Decision-Making Skills">Decision-Making Skills</label>
+        <input type="range" id="Decision-Making Skills" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Continuous Learning">Continuous Learning</label>
+        <input type="range" id="Continuous Learning" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Adaptability">Adaptability</label>
+        <input type="range" id="Adaptability" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Financial Reporting">Financial Reporting</label>
+        <input type="range" id="Financial Reporting" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Team Collaboration">Team Collaboration</label>
+        <input type="range" id="Team Collaboration" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Client or Stakeholder Relationship Management">Client or Stakeholder Relationship Management</label>
+        <input type="range" id="Client or Stakeholder Relationship Management" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Technology Proficiency">Technology Proficiency</label>
+        <input type="range" id="Technology Proficiency" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Problem-Solving Skills">Problem-Solving Skills</label>
+        <input type="range" id="Problem-Solving Skills" min="1" max="10" value="5">
+      </div>
+      <div>
+        <label for="Predict Button">Predict Button</label>
+        <button id="predict-button">Predict Roles</button>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="instructions">
+        <h3>How to Use the App:</h3>
+        <p>1. Adjust skill levels using sliders in the sidebar.</p>
+        <p>2. Click the 'Predict Roles' button below.</p>
+        <p>3. View the predicted roles.</p>
+      </div>
+      <div id="prediction" class="prediction"></div>
+      <div class="job-info">
+        <h3>Job Information:</h3>
+        <div id="job-info"></div>
+      </div>
+      <div class="pred-prob">
+        <h4>Prediction Probabilities:</h4>
+        <div id="prob-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const sliders = document.querySelectorAll('input[type="range"]');
+    const prediction = document.getElementById('prediction');
+    const jobInfo = document.getElementById('job-info');
+    const probList = document.getElementById('prob-list');
+    const predictButton = document.getElementById('predict-button');
+
+    // Initialize user skills array
+    let userSkills = [];
+
+    // Set up slider change event listeners
+    sliders.forEach((slider, i) => {
+      slider.addEventListener('input', () => {
+        userSkills[i] = slider.value;
+      });
+    });
+
+    // Set up predict button click event listener
+    predictButton.addEventListener('click', () => {
+      // Convert user input to NumPy array
+      const inputData = new Float32Array(userSkills);
+      const inputDataArray = new Float32Array([inputData.length].concat(inputData));
+
+      // Display user input values as a list
+      prediction.innerHTML = `<p class="prediction">User input values:</p><ul><li>${userSkills.join('</li><li>')}</li></ul>`;
+
+      // You can add your prediction code here
+      // ...
+    });
+
+    // Replace this with actual job information
