@@ -155,27 +155,46 @@
     const probList = document.getElementById('prob-list');
     const predictButton = document.getElementById('predict-button');
 
-    // Initialize user skills array
+// Initialize user skills array
     let userSkills = [];
 
-    // Set up slider change event listeners
+// Load user skills from local storage
+    if (localStorage.getItem('userSkills')) {
+        userSkills = JSON.parse(localStorage.getItem('userSkills'));
+        updateSliderValues();
+    }
+
+// Set up slider change event listeners
     sliders.forEach((slider, i) => {
-      slider.addEventListener('input', () => {
+     slider.addEventListener('input', () => {
         userSkills[i] = slider.value;
-      });
-    });
+        saveUserSkills();
+         });
+        });
 
-    // Set up predict button click event listener
+// Set up predict button click event listener
     predictButton.addEventListener('click', () => {
-      // Convert user input to NumPy array
-      const inputData = new Float32Array(userSkills);
-      const inputDataArray = new Float32Array([inputData.length].concat(inputData));
+  // Convert user input to NumPy array
+     const inputData = new Float32Array(userSkills);
+     const inputDataArray = new Float32Array([inputData.length].concat(inputData));
 
-      // Display user input values as a list
       prediction.innerHTML = `<p class="prediction">User input values:</p><ul><li>${userSkills.join('</li><li>')}</li></ul>`;
 
-      // You can add your prediction code here
-      // ...
+  // You can add your prediction code here
+  // ...
+});
+
+// Utility functions
+    function updateSliderValues() {
+      sliders.forEach((slider, i) => {
+        slider.value = userSkills[i];
     });
+    }
+
+    function saveUserSkills() {
+      localStorage.setItem('userSkills', JSON.stringify(userSkills));
+}
 
     // Replace this with actual job information
+    // Replace this with actual job information
+   
